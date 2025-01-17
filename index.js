@@ -13,7 +13,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(
   {
-  origin: "http://localhost:5173",
+  origin: "https://your-bank-psi.vercel.app",
    credentials:true,
    
 }
@@ -26,6 +26,9 @@ mongoose.connect(url).then(() => {
 const port = process.env.PORT || 5000;
      
 app.use("/api/users", userRout);
+app.get("/", (req, res) => {
+  res.send("Your backend is working");
+});
 
 app.all("*", (req, res) => {
   res.status(404).json({
