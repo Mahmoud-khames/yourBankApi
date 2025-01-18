@@ -6,6 +6,7 @@ const token = require("../middleware/tokenAccusse");
 const tokenAccusse = require("../middleware/tokenAccusse");
 router.get("/", tokenAccusse,userControllers.getAllUsers);
 router.post("/updateUser/:id",userControllers.updateUser);
+router.delete("/deleteUser/:id",userControllers.deleteUser);
 
 router.post("/login",userControllers.Login);
 

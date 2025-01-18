@@ -50,6 +50,17 @@ const updateUser = asyncWrapper(async (req, res, next) => {
   await user.save();
   return res.status(200).json({ Status: httpStatusText.SUCCESS, data: user  });
 });
+const deleteUser = asyncWrapper(async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  const user = await Users.findById({ _id: id });
+  if (!user) {
+    const error = appError.create("user not found", 404, httpStatusText.ERROR);
+    return next(error);
+  }
+  await user.deleteOne();
+  return res.status(200).json({ Status: httpStatusText.SUCCESS, data: "user is delete"  });
+});
 const Register = asyncWrapper(async (req, res, next) => {
   const { fristName, lastName, email, password } = req.body;
   const findUser = await Users.findOne({ email });
@@ -202,4 +213,5 @@ module.exports = {
   updateUser,
   logout,
   verifyEmail,
+  deleteUser,
 };
