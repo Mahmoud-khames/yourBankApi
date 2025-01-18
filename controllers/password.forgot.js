@@ -22,7 +22,7 @@ const sendForgotPassword = asyncWrapper(async (req, res, next) => {
   const token = await jwt.sign({ _id: user._id, email: user.email }, secret, {
     expiresIn: "10m",
   });
-  const link = `http://localhost:3000/reset-password/${user._id}/${token}`;
+  const link = `https://your-bank-psi.vercel.app/reset-password/${user._id}/${token}`;
 
 await Emalis.sendPasswordResetEmail(user.email, link , user.fristName);
 res.status(200).json({
